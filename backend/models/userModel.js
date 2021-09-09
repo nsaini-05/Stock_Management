@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 
 const userSchema = mongoose.Schema({
-  fullName: {
+  name: {
     type: String,
     required: [true, "Please enter your name"],
     maxLength: [30, "Your name cannot exceed 30 Characters"],
@@ -24,9 +24,12 @@ const userSchema = mongoose.Schema({
     minLength: [6, "Password cannot be less than 6 Characters"],
     select: false,
   },
-  stocks: [{ units: "integer" }],
-  balance: { type: "integer", default: 0 },
+  stocks: [{}],
+  balance: {
+    type: "Number",
+    default: 0,
+    min: [0, "Balance cannot be less than 0"],
+  },
 });
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+export const User = mongoose.model("User", userSchema);
