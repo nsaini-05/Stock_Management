@@ -1,0 +1,20 @@
+{
+  "name": "smts_backend",
+  "version": "1.0.0",
+  "description": "Stock Management Tracking System API",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Neeraj Saini",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.5",
+    "nodemon": "^2.0.12",
+    "validator": "^13.6.0"
+  }
+}
