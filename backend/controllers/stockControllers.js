@@ -28,6 +28,7 @@ export const purchaseStock = async (req, res, next) => {
       user.stocks.push({
         stock_id: purchasingStock._id,
         quantity: quantity,
+        name: purchasingStock.name,
       });
     }
     user.balance = user.balance - costPrice;
@@ -82,6 +83,15 @@ export const sellStock = async (req, res, next) => {
   }
 };
 
+export const getStockPrice = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const stock = await Stock.findById(id);
+    res.status(200).json({ Name: stock.name, price: stock.price });
+  } catch (err) {
+    return next(new ErrorHandler(err, 400));
+  }
+};
 // export const createStock = async (req, res, next) => {
 //   console.log("sadfasf");
 //   const stock = req.body;

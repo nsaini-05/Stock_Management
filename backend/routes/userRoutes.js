@@ -7,6 +7,7 @@ import {
   loginUser,
   addBalance,
   logoutUser,
+  getPorfolio,
 } from "../controllers/userControllers.js";
 
 import { isAuthenticatedUser } from "../middlewares/auth.js";
@@ -16,6 +17,7 @@ router.post("/login", loginUser);
 router.get("/logout", isAuthenticatedUser, logoutUser);
 
 router.post("/addbalance", isAuthenticatedUser, addBalance);
+router.get("/myportfolio", isAuthenticatedUser, getPorfolio);
 
 // router.post("/createstock", createStock);
 

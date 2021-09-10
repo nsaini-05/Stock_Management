@@ -72,3 +72,13 @@ export const addBalance = async (req, res, next) => {
     return next(new ErrorHandler(error, 400));
   }
 };
+
+export const getPorfolio = async (req, res, next) => {
+  const user = req.user;
+
+  res.status(200).send(user);
+};
+
+function reducer(total, num) {
+  return total + num;
+}
