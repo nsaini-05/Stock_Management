@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = mongoose.Schema({
   name: {
@@ -25,7 +26,12 @@ const userSchema = mongoose.Schema({
     minLength: [6, "Password cannot be less than 6 Characters"],
     select: false,
   },
-  stocks: [{}],
+  stocks: [
+    {
+      stock_id: mongoose.Schema.ObjectId,
+      quantity: { type: Number, min: [0, "Quantity cannot be less"] },
+    },
+  ],
   balance: {
     type: "Number",
     default: 0,
@@ -42,6 +48,14 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+//Return JWT TOken
+
+userSchema.methods.getJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRATION,
+  });
 };
 
 export const User = mongoose.model("User", userSchema);
